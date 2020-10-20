@@ -1,10 +1,17 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { CSSProperties } from 'react';
 import CardComments from './CardComments';
 
-const Card: FC = () => {
+type CardProps = {
+  name: string,
+  comments: string,
+};
+
+const Card = (props: CardProps) => {
   return (
     <div style={styles}>
       This is a Card component.
+      {props.name}
+      {props.comments}
       <CardComments />
     </div>
   );

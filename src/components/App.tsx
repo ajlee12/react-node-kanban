@@ -10,7 +10,6 @@ import List from './List';
 const App = () => {
   return (
     <div className="App" style={styles}>
-      {/* <h1>Hello World!</h1> */}
       <List listTitle={'Applied'} />
       <List listTitle={'Phone Screen'} />
     </div>

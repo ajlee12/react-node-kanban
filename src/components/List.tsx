@@ -35,6 +35,7 @@ const List = (props: ListProps) => {
         return ( 
           <Card
             key={`${props.listTitle}${i}`}
+            id={`${i}${card.name}`}
             name={card.name}
             comments={card.comments}
             listTitle={props.listTitle}

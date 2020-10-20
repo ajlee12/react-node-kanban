@@ -1,7 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-// const actions = {};
-
 const addComments = (id: string, comments: string) => ({
   type: types.ADD_COMMENTS,
   payload: {
@@ -10,4 +8,8 @@ const addComments = (id: string, comments: string) => ({
   },
 });
 
-export default addComments;
+const actions = {
+  addComments,
+};
+
+export default actions;

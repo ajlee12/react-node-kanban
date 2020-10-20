@@ -1,7 +1,11 @@
 import React, { CSSProperties, FC } from 'react';
+import { CardContents } from '../store/types';
 import Card from './Card';
 
-type ListProps = { listTitle: string };
+type ListProps = { 
+  listTitle: string,
+  listContents: CardContents[],
+};
 
 const List: FC<ListProps> = ({listTitle}) => {
   return (

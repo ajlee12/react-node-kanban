@@ -30,7 +30,7 @@ const List = (props: ListProps) => {
       {/* <button></button> */}
       This is a List component.
       {/* {console.log('props in List:',props)} */}
-      {console.log('props[listTitle]:',props[listTitle])}
+      {/* {console.log('props[listTitle]:', props[listTitle])} */}
       {props[listTitle].map((card: CardContents, i: number) => {
         return ( 
           <Card

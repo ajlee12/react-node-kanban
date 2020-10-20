@@ -1,4 +1,5 @@
-export interface CardContents { 
+export interface CardContents {
+  id: string,
   name: string,
   status: string,
   comments: string,

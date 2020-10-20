@@ -31,9 +31,10 @@ const List = (props: ListProps) => {
       This is a List component.
       {/* {console.log('props in List:',props)} */}
       {console.log('props[listTitle]:',props[listTitle])}
-      {props[listTitle].map((card: CardContents) => {
+      {props[listTitle].map((card: CardContents, i: number) => {
         return ( 
-          <Card 
+          <Card
+            key={`${props.listTitle}${i}`}
             name={card.name}
             comments={card.comments}
             listTitle={props.listTitle}

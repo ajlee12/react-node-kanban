@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import CardComments from './CardComments';
 
-type CardProps = {
+interface CardProps {
   name: string,
   comments: string,
 };

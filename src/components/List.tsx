@@ -8,7 +8,7 @@ const mapStateToProps = (store: AppState) => ({
   PhoneScreen: store.cards.PhoneScreen,
 });
 
-type ListProps = { 
+interface ListProps { 
   listTitle: string,
   Applied?: CardContents[],
   PhoneScreen?: CardContents,

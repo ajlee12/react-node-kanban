@@ -27,7 +27,6 @@ const initialState: CardsState = {
 
 const cardsReducer = (state: {[ key: string ]: any } = initialState, action: CardsAction) => {
   switch (action.type) {
-    // Changes an applicant's status when the card is dragged to a different column.
     case types.ADD_COMMENTS:
       // console.log('action payload (cardsReducer): ', action.payload);
       // console.log('payload.id (cardsReducer): ', action.payload.id);
@@ -37,37 +36,31 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
       const newComments: string = action.payload.comments;
       const name: string = action.payload.name;
       const status: string = action.payload.status;
-
-      // Filter out the applicant of concern.
-      // const otherApplicants: CardContents[] = state[status].filter((app: CardContents) => {
-      //   return app.id !== id && app.name !== name;
-      // });
-      // console.log('applicant: ', applicant);
       
-     
+      // Find and update the targetted applicant's comments.
       const applicants: CardContents[] = state[status].map((app: CardContents) => {
         if (app.id === id && app.name === name) {
-          const targetted = {
+          let updatedComments: string = '';
+
+          // If an old comment exists, append new to old.
+          if (app.comments) {
+            updatedComments = `${app.comments}\n${newComments}`;
+          } else {
+            updatedComments = newComments;
+          }
+
+          const targettedApp = {
             id,
             name,
             status,
-            comments: newComments,
+            comments: updatedComments,
           };
 
-          return targetted;
+          return targettedApp;
         } else {
           return { ...app };
         }
       });
-
-      // console.log('applicant: ', applicant);
-      // Replace the targetted applicant's 'comments' value.
-      // const applicant = {
-      //   id,
-      //   name,
-      //   status,
-      //   comments: newComments,
-      // }
 
       return {
         ...state,

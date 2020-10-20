@@ -8,6 +8,7 @@ import './styles.css';
 render(
   <Provider store={store}>
     <React.StrictMode>
+      Application Kanban Board
       <App />
     </React.StrictMode>
   </Provider>,

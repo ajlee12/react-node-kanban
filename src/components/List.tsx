@@ -1,11 +1,17 @@
 import React, { CSSProperties, FC } from 'react';
-import { CardContents } from '../store/types';
+import { connect } from 'react-redux';
+import { CardContents, CardsState } from '../store/types';
 import Card from './Card';
 
 type ListProps = { 
   listTitle: string,
-  listContents: CardContents[],
+  // listContents: CardContents[],
 };
+
+const mapStateToProps = (store: CardsState) => ({
+  Applied: store.Applied,
+  PhoneScreen: store.PhoneScreen,
+});
 
 const List: FC<ListProps> = ({listTitle}) => {
   return (
@@ -24,4 +30,4 @@ const styles: CSSProperties = {
   alignItems: 'center',
 };
 
-export default List;
+export default connect(mapStateToProps, null)(List);

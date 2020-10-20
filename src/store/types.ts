@@ -1,4 +1,4 @@
-export type CardContents = { 
+export interface CardContents { 
   name: string,
   status: string,
   comments: string,
@@ -13,7 +13,7 @@ export interface CardsState {
   Rejected: CardContents[],
 };
 
-export interface CardsAction {
+export type CardsAction = {
   type: string,
   payload: string,
 };

@@ -29,8 +29,9 @@ const cardsReducer: Reducer<
 > = (state: CardsState = initialState, action: CardsAction) => {
   switch (action.type) {
     // Changes an applicant's status when the card is dragged to a different column.
-    // case types.CHANGE_STATUS:
-
+    case types.ADD_COMMENTS:
+      
+      return state;
 
     default:
       return state;

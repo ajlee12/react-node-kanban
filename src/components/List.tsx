@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CardContents, AppState } from '../store/types';
 import Card from './Card';
+import AddCardButton from './AddCardButton';
 
 const mapStateToProps = (store: AppState) => ({
   Applied: store.cards.Applied,
@@ -25,6 +26,8 @@ const List = (props: ListProps) => {
   return (
     <div className='lists'>
       <h2>{props.listTitle}</h2>
+      <AddCardButton />
+      {/* <button></button> */}
       This is a List component.
       {/* {console.log('props in List:',props)} */}
       {console.log('props[listTitle]:',props[listTitle])}

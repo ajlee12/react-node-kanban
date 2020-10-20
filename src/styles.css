@@ -6,3 +6,11 @@ body {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+.cards {
+  background-color: #D4E6F1;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

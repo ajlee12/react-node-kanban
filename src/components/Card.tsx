@@ -1,28 +1,21 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import CardComments from './CardComments';
 
 interface CardProps {
   name: string,
   comments: string,
+  listTitle: string,
 };
 
 const Card = (props: CardProps) => {
   return (
-    <div style={styles}>
+    <div className='cards'>
       This is a Card component.
-      {props.name}
-      {props.comments}
+      <span>Name: {props.name}</span>
+      <span>Comments: {props.comments}</span>
       <CardComments />
     </div>
   );
-};
-
-const styles: CSSProperties = {
-  backgroundColor: '#D4E6F1',
-  width: '70%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
 };
 
 export default Card;

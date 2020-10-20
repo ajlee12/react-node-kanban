@@ -1,3 +1,4 @@
+import { Reducer } from 'redux';
 import * as types from '../constants/actionTypes';
 import { CardsState, CardsAction } from '../store/types';
 
@@ -22,7 +23,10 @@ const initialState: CardsState = {
   Rejected: [],
 };
 
-const cardsReducer = (state: CardsState = initialState, action: CardsAction) => {
+const cardsReducer: Reducer<
+  CardsState,
+  CardsAction
+> = (state: CardsState = initialState, action: CardsAction) => {
   switch (action.type) {
     // Changes an applicant's status when the card is dragged to a different column.
     // case types.CHANGE_STATUS:

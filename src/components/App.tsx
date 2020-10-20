@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 // import { connect } from 'react-redux';
 
 import List from './List';
@@ -7,7 +7,7 @@ import List from './List';
   
 // };
 
-const App: FC = () => {
+const App = () => {
   return (
     <div className="App" style={styles}>
       {/* <h1>Hello World!</h1> */}

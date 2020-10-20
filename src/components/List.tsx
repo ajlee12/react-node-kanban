@@ -1,24 +1,31 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { CSSProperties } from 'react';
 import { connect } from 'react-redux';
-import { CardContents, CardsState } from '../store/types';
+import { CardContents, AppState } from '../store/types';
 import Card from './Card';
+
+const mapStateToProps = (store: AppState) => ({
+  Applied: store.cards.Applied,
+  PhoneScreen: store.cards.PhoneScreen,
+});
 
 type ListProps = { 
   listTitle: string,
-  // listContents: CardContents[],
+  Applied?: CardContents[],
+  PhoneScreen?: CardContents,
 };
 
-const mapStateToProps = (store: CardsState) => ({
-  Applied: store.Applied,
-  PhoneScreen: store.PhoneScreen,
-});
+//{listTitle, Applied, PhoneScreen }
 
-const List: FC<ListProps> = ({listTitle}) => {
+const List = (props: ListProps) => {
   return (
     <div style={styles}>
-      <h2>{listTitle}</h2>
+      <h2>{props.listTitle}</h2>
       This is a List component.
-      <Card />
+      {console.log(props.Applied)}
+      {props.Applied?.map((card) => {
+        return `${card.name}, ${card.comments}`
+      })}
+      {/* <Card /> */}
     </div>
   );
 };

@@ -13,6 +13,10 @@ export interface CardsState {
   Rejected: CardContents[],
 };
 
+export interface AppState {
+  cards: CardsState,
+};
+
 export type CardsAction = {
   type: string,
   payload: string,

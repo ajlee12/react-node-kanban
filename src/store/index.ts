@@ -1,9 +1,8 @@
-import { createStore, Store } from 'redux';
+import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from '../reducers/index';
-import { CardsState } from './types'
 
-const store: Store<CardsState> = createStore(
+const store = createStore(
   reducers,
   composeWithDevTools(),
 );

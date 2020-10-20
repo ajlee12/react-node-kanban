@@ -1,11 +1,13 @@
 import React from 'react';
 import List from './List';
 
+// interface Props {};
+
 const App = () => {
   return (
     <div className="App" style={styles}>
       <List listTitle={'Applied'} />
-      <List listTitle={'Phone Screen'} />
+      <List listTitle={'PhoneScreen'} />
     </div>
   );
 };

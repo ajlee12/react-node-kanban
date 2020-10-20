@@ -5,10 +5,12 @@ import actions from '../actions/actionCreators';
 
 interface CardCommentsProps {
   id: string,
+  name: string,
+  listTitle: string,
   addComments: ReturnType<typeof mapDispatchToProps> | any,
 };
 
-let inputText: string;
+// let inputText: string;
 
 const CardComments = (props: CardCommentsProps) => {
   const [input, setInputValue] = useState('');
@@ -18,7 +20,7 @@ const CardComments = (props: CardCommentsProps) => {
     e.preventDefault();
 
     setInputValue(e.target.value);
-    inputText = input;
+    // inputText = input;
   };
 
   // const handleSubmit = (e: FormEvent) => {
@@ -30,7 +32,11 @@ const CardComments = (props: CardCommentsProps) => {
   return (
     <div>
       This a CardComments component.
-      <form id={props.id} onSubmit={(e) => props.addComments(e)}>
+      <form
+        id={props.id}
+        name={props.name}
+        onSubmit={(e) => props.addComments(e, input, props.name, props.listTitle)}
+      >
         <h4>Add comments:</h4>
         <input type="text" placeholder='Comments..' value={input} onChange={handleChange} />
       </form>
@@ -39,10 +45,10 @@ const CardComments = (props: CardCommentsProps) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addComments: (e: FormEvent) => {
+  addComments: (e: FormEvent, inputText: string, name: string, listTitle: string) => {
     // console.log('target ID: ', (e.target as HTMLFormElement).id, ', inputText: ', inputText);
     e.preventDefault();
-    dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText));
+    dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText, name, listTitle));
   },
 });
 

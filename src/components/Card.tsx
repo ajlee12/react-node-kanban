@@ -8,13 +8,13 @@ interface CardProps {
   listTitle: string,
 };
 
-const Card = (props: CardProps) => {
+const Card = ({ id, name, comments, listTitle }: CardProps) => {
   return (
     <div className='cards'>
       This is a Card component.
-      <span>Name: {props.name}</span>
-      <span>Comments: {props.comments}</span>
-      <CardComments id={props.id} />
+      <span>Name: {name}</span>
+      <span>Comments: {comments}</span>
+      <CardComments id={id} name={name} listTitle={listTitle} />
     </div>
   );
 };

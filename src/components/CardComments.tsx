@@ -40,7 +40,7 @@ const CardComments = (props: CardCommentsProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addComments: (e: FormEvent) => {
-    console.log('target ID: ', (e.target as HTMLFormElement).id, ', inputText: ', inputText)
+    // console.log('target ID: ', (e.target as HTMLFormElement).id, ', inputText: ', inputText);
     e.preventDefault();
     dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText));
   },

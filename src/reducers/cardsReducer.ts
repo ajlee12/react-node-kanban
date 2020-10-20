@@ -30,7 +30,10 @@ const cardsReducer: Reducer<
   switch (action.type) {
     // Changes an applicant's status when the card is dragged to a different column.
     case types.ADD_COMMENTS:
-      
+      // console.log('action payload (cardsReducer): ', action.payload.id);
+      console.log('payload.id (cardsReducer): ', action.payload.id);
+      console.log('payload.comments (cardsReducer): ', action.payload.comments);
+
       return state;
 
     default:

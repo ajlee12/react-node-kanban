@@ -19,5 +19,5 @@ export interface AppState {
 
 export type CardsAction = {
   type: string,
-  payload: string,
+  payload: any,
 };

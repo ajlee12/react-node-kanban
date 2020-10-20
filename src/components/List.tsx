@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CardContents, AppState } from '../store/types';
 import Card from './Card';
@@ -23,7 +23,7 @@ interface ListProps extends ListPropsKeys {
 const List = (props: ListProps) => {
   const listTitle = props.listTitle;
   return (
-    <div style={styles}>
+    <div className='lists'>
       <h2>{props.listTitle}</h2>
       This is a List component.
       {/* {console.log('props in List:',props)} */}
@@ -40,13 +40,6 @@ const List = (props: ListProps) => {
       {/* <Card /> */}
     </div>
   );
-};
-
-const styles: CSSProperties = {
-  backgroundColor: '#5DADE2',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
 };
 
 export default connect(mapStateToProps, null)(List);

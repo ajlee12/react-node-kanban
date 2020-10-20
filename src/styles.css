@@ -7,6 +7,13 @@ body {
     monospace;
 } */
 
+.lists {
+  background-color: #5DADE2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cards {
   background-color: #D4E6F1;
   width: 70%;

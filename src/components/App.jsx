@@ -6,8 +6,8 @@ import List from './List';
 const App = () => {
   return (
     <div className="App" style={styles}>
-      <List listTitle={'Applied'} />
-      <List listTitle={'PhoneScreen'} />
+      <List id='list-Applied' listTitle={'Applied'} />
+      <List id='list-PhoneScreen' listTitle={'PhoneScreen'} />
     </div>
   );
 };

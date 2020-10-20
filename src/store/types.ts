@@ -1,4 +1,5 @@
-export interface CardContents { 
+export interface CardContents {
+  id: string,
   name: string,
   status: string,
   comments: string,
@@ -19,5 +20,5 @@ export interface AppState {
 
 export type CardsAction = {
   type: string,
-  payload: string,
+  payload: any,
 };

@@ -28,12 +28,13 @@ const addCard = (name: string, comments: string) => ({
 // 3. Dispatch addCard to store with such ID and other payload.
 
 // When a card is dragged from a list to another, its status changes.
-const changeStatus = (id: string, name: string, status: string) => ({
+const changeStatus = (id: string, name: string, oldStatus: string, newStatus: string) => ({
   type: types.CHANGE_STATUS,
   payload: {
     id,
     name,
-    status,
+    oldStatus,
+    newStatus,
   },
 });
 

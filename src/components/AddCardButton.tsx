@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Modal from 'react-modal';
+import ModalForm from './ModalForm';
 
 Modal.setAppElement('#root');
+
 
 const AddCardButton = () => {
   const [ modalIsOpen, setIsOpen ] = React.useState(false);
 
   const openModal = () => {
     setIsOpen(true);
-  }
+  };
  
+  let subtitle: HTMLHeadElement | null;
+
   const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
+    subtitle!.style.color = '#1F618D';
+  };
  
   const closeModal = () => {
     setIsOpen(false);
-  }
+  };
+
+  const submitApp = (e: FormEvent) => {
+    // e.preventDefault();
+  };
 
   return (
-    // <button
-    //   id='add-card-btn'
-    //   // onClick={}
-    // >
-    //   + Add Card
-    // </button>
-
     <div>
-      <button onClick={openModal}>Open Modal</button>
+      <button onClick={openModal} id='add-card-btn'>+ Add Applicant</button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -36,16 +36,11 @@ const AddCardButton = () => {
           // style={customStyles}
           contentLabel="Example Modal"
         >
-          {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
-          <button onClick={closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+          <h2 ref={_subtitle => (subtitle = _subtitle)}>
+            Add a New Applicant
+          </h2>
+          <ModalForm submitApp={submitApp} />
+          <button onClick={closeModal}>Cancel</button>
         </Modal>
     </div>
   );

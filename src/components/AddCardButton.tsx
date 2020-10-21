@@ -7,6 +7,11 @@ import actions from '../actions/actionCreators';
 
 Modal.setAppElement('#root');
 
+/*
+ * This button component opens up a modal that contains a form
+ * that needs to be filled out in order to add an applicant.
+ */
+
 interface AddCardButtonProps {
   // addCard: ReturnType<typeof mapDispatchToProps>,
   addCard: (name: string, comments: string) => void,

@@ -20,30 +20,25 @@ const CardComments = (props: CardCommentsProps) => {
     e.preventDefault();
 
     setInputValue(e.target.value);
-    // inputText = input;
   };
 
-  // const handleSubmit = (e: FormEvent) => {
-  //   e.preventDefault();
-
-  //   props.addComments(e.target.id, );
-  // };
-
   return (
-    <div>
-      This a CardComments component.
+    <div className='comments-div'>
       <form
+        className='input-form'
         id={props.id}
         name={props.name}
         onSubmit={(e) => props.addComments(e, input, props.name, props.listTitle)}
       >
         <h4>Add comments:</h4>
-        <input
-          type="text"
-          placeholder='Comments..'
-          value={input}
-          onChange={handleChange}
-        />
+        <span className='input-span'>
+          <input
+            type="text"
+            placeholder='Comments..'
+            value={input}
+            onChange={handleChange}
+          />
+        </span>
       </form>
     </div>
   );
@@ -51,7 +46,6 @@ const CardComments = (props: CardCommentsProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addComments: (e: FormEvent, inputText: string, name: string, listTitle: string) => {
-    // console.log('target ID: ', (e.target as HTMLFormElement).id, ', inputText: ', inputText);
     e.preventDefault();
     dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText, name, listTitle));
   },

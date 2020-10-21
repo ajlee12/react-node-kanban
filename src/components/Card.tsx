@@ -33,7 +33,6 @@ const Card = ({ id, name, comments, listTitle }: CardProps) => {
       onDragStart={dragStart}
       onDragOver={dragOver}
     >
-      This is a Card component.
       <span>Name: {name}</span>
       <span>Comments: {comments}</span>
       <CardComments id={id} name={name} listTitle={listTitle} />

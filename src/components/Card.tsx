@@ -11,6 +11,8 @@ interface CardProps {
 const Card = ({ id, name, comments, listTitle }: CardProps) => {
   const dragStart = (e: DragEvent) => {
     const target = e.target as HTMLDivElement;
+    cloneNode(target.parentNode!, target);
+
     e.dataTransfer.setData('card_id', target.id);
 
     // This allows the card being dragged to disappear
@@ -21,6 +23,13 @@ const Card = ({ id, name, comments, listTitle }: CardProps) => {
     }, 0);
   };
 
+  const cloneNode = (parent: (Node & ParentNode), child: HTMLDivElement) => {
+    console.log('cloning!')
+    // clone child and append to parent.
+    const clone = child.cloneNode(true);
+    parent.appendChild(clone);
+  };
+
   const dragOver = (e: DragEvent) => {
     e.stopPropagation();
   };
@@ -28,6 +37,8 @@ const Card = ({ id, name, comments, listTitle }: CardProps) => {
   return (
     <div
       id={id}
+      data-status={listTitle}
+      data-name={name}
       className='cards'
       draggable='true'
       onDragStart={dragStart}

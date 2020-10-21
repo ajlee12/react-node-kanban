@@ -27,10 +27,20 @@ const addCard = (name: string, comments: string) => ({
 // 2. Get document's ID
 // 3. Dispatch addCard to store with such ID and other payload.
 
+// When a card is dragged from a list to another, its status changes.
+const changeStatus = (id: string, name: string, status: string) => ({
+  type: types.CHANGE_STATUS,
+  payload: {
+    id,
+    name,
+    status,
+  },
+});
 
 const actions = {
   addComments,
   addCard,
+  changeStatus,
 };
 
 export default actions;

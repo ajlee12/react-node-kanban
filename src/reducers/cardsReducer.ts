@@ -67,6 +67,10 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
         [status]: [ ...applicants ],
       };
 
+    case types.ADD_CARD:
+
+      return state;
+      
     default:
       return state;
   }

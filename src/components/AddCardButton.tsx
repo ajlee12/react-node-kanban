@@ -6,7 +6,7 @@ Modal.setAppElement('#root');
 
 
 const AddCardButton = () => {
-  const [ modalIsOpen, setIsOpen ] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const openModal = () => {
     setIsOpen(true);

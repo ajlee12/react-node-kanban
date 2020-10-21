@@ -1,18 +1,46 @@
-import React, { CSSProperties, FormEvent } from 'react';
+import React, { useState, CSSProperties, ChangeEvent } from 'react';
 
 interface ModalFormProps {
-  submitApp: (e: FormEvent) => void,
+  submitApp: (name: string, comments: string) => void,
 };
 
+const initialFormData = Object.freeze({
+  name: '',
+  comments: ''
+});
+
 const ModalForm = (props: ModalFormProps) => {
+  const [formData, updateFormData] = useState(initialFormData);
+
+  const handleChange = (e: ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+
+    updateFormData({
+      ...formData,
+      [target.name]: target.value.trim()
+    });
+  };
+
+  const handleSubmit = () => {
+    // console.log('updated formData state: ', formData);
+    
+    props.submitApp(formData.name, formData.comments);
+  };
+
   return (
     <div >
-      <form style={styles}>
-        <input id='modal-form-name' placeholder='Applicant Name'/>
-        <input id='modal-form-comments' placeholder='Comments'/>
-        {/* <input id='modal-form-name' placeholder='Applicant Name'/> */}
-        <button onClick={props.submitApp}>Submit</button>
-        {/* <button>Cancel</button> */}
+      <form style={styles} onSubmit={handleSubmit}>
+        <input
+          name='name'
+          placeholder='Applicant Name'
+          onChange={handleChange}
+        />
+        <input
+          name='comments'
+          placeholder='Comments'
+          onChange={handleChange}  
+        />
+        <button type='submit'>Submit</button>
       </form>  
     </div>
   )

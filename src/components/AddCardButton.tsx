@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import ModalForm from './ModalForm';
 
@@ -22,8 +22,8 @@ const AddCardButton = () => {
     setIsOpen(false);
   };
 
-  const submitApp = (e: FormEvent) => {
-    // e.preventDefault();
+  const submitApp = (name: string, comments: string) => {
+    // console.log(`name: ${name}, comments: ${comments}`);
   };
 
   return (

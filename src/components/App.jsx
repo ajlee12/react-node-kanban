@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div id='App' style={styles}>
       <List id='list-Applied' listTitle={'Applied'}>
-        <AddCardButton />
+        {/* <AddCardButton /> */}
       </List>
       <List id='list-PhoneScreen' listTitle={'PhoneScreen'} />
     </div>

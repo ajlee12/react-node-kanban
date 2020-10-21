@@ -1,11 +1,5 @@
 body {
   background-color: #1F618D;
-  /* box-sizing: border-box; */
-}
-
-#App {
-  display: flex;
-
 }
 
 .lists {
@@ -14,7 +8,8 @@ body {
   flex-direction: column;
   align-items: center;
 
-  width: 17%;
+  width: 30%;
+  min-width: 17%;
   /* padding: 2em; */
   margin: 2em;
 }
@@ -25,6 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 0.3em;
 }
 
 .comments-div {

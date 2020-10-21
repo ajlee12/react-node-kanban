@@ -7,6 +7,10 @@ import AddCardButton from './AddCardButton';
 const mapStateToProps = (store: AppState) => ({
   Applied: store.cards.Applied,
   PhoneScreen: store.cards.PhoneScreen,
+  OnSite: store.cards.OnSite,
+  Offered: store.cards.Offered,
+  Accepted: store.cards.Accepted,
+  Rejected: store.cards.Rejected,
 });
 
 interface ListPropsKeys {

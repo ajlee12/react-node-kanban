@@ -11,6 +11,10 @@ const App = () => {
         {/* <AddCardButton /> */}
       </List>
       <List id='list-PhoneScreen' listTitle={'PhoneScreen'} />
+      <List id='list-OnSite' listTitle={'OnSite'} />
+      <List id='list-Offered' listTitle={'Offered'} />
+      <List id='list-Accepted' listTitle={'Accepted'} />
+      <List id='list-Rejected' listTitle={'Rejected'} />
     </div>
   );
 };

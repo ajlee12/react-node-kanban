@@ -1,4 +1,3 @@
-// import { Reducer } from 'redux';
 import * as types from '../constants/actionTypes';
 import { CardsState, CardContents, CardsAction } from '../store/types';
 
@@ -26,23 +25,21 @@ const initialState: CardsState = {
 };
 
 const cardsReducer = (state: {[ key: string ]: any } = initialState, action: CardsAction) => {
+  // console.log('action payload (cardsReducer): ', action.payload);
   let id: string;
   let newComments: string;
   let name: string;
   let status: string;
+  let oldApplicants: CardContents[];
   
   switch (action.type) {
     case types.ADD_COMMENTS:
-      // console.log('action payload (cardsReducer): ', action.payload);
-      // console.log('payload.id (cardsReducer): ', action.payload.id);
-      // console.log('payload.comments (cardsReducer): ', action.payload.comments);
-      
       id = action.payload.id;
       newComments = action.payload.comments;
       name = action.payload.name;
       status = action.payload.status;
       
-      const applicants: CardContents[] = state[status].map((app: CardContents) => {
+      oldApplicants = state[status].map((app: CardContents) => {
         // Find and update the targetted applicant's comments.
         if (app.id === id && app.name === name) {
           let updatedComments: string = '';
@@ -70,7 +67,7 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
 
       return {
         ...state,
-        [status]: [ ...applicants ],
+        [status]: [ ...oldApplicants ],
       };
 
     case types.ADD_CARD:
@@ -82,13 +79,57 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
       };
 
       // Make shallow copies.
-      const oldAppliedCards = state.Applied.map((app: CardContents) => {
+      oldApplicants = state.Applied.map((app: CardContents) => {
         return { ...app };
       });
       
       return {
         ...state,
-        Applied: [ ...oldAppliedCards, newCard ],
+        Applied: [ ...oldApplicants, newCard ],
+      };
+
+    // When a card's status prop changes, it should also 
+    // be moved to the array corrersponding to this new status.
+    case types.CHANGE_STATUS:
+      // console.log(`reducer: CHANGE_STATUS payload:`, action.payload);
+      id = action.payload.id;
+      name = action.payload.name;
+      
+      const oldStatus = action.payload.oldStatus;
+      const newStatus = action.payload.newStatus;
+
+      // Save the old comments, as it's the only value not included in payload.
+      let originalComments: string;
+      
+      console.log('state[oldStatus] BEFORE:', state[oldStatus]);
+
+      let dupesCount = 0;
+      // Remove the targetted app from its original array.
+      oldApplicants = state[oldStatus].filter((app: CardContents, i: number) => {
+        if (app.id !== id && app.name !== name && dupesCount < 1) {
+          dupesCount += 1;
+          // return app.id !== id && app.name !== name;
+          return true;
+        } else if (dupesCount < 1) {
+          originalComments = app.comments;
+        }
+        return false;
+      });
+
+      console.log('oldApplicants:', oldApplicants);
+
+      const updatedTargettedApp = {
+        id,
+        name,
+        status: newStatus,
+        comments: originalComments!,
+      };
+      
+      // Add to array that corresponds to the new status.
+      return {
+        ...state,
+        [oldStatus]: oldApplicants,
+        [newStatus]: [...state[newStatus], updatedTargettedApp],
       };
 
     default:

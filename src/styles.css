@@ -2,6 +2,12 @@ body {
   background-color: #1F618D;
 }
 
+#add-card-btn {
+  margin-left: 2em;
+  min-width: 15%;
+  min-height: 2em;
+}
+
 .lists {
   background-color: #5DADE2;
   display: flex;
@@ -10,8 +16,8 @@ body {
 
   width: 30%;
   min-width: 17%;
-  /* padding: 2em; */
-  margin: 2em;
+  height: 50em;
+  margin: 0.5em;
 }
 
 .cards {

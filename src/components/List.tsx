@@ -68,4 +68,8 @@ const List = (props: ListProps) => {
   );
 };
 
-export default connect(mapStateToProps)(List);
+/* 
+ * The 2nd arg 'null' caused TS error in App.tsx:
+ * Property 'id' does not exist on type 'IntrinsicAttributes & Pick<ListProps, never>'
+ */
+export default connect(mapStateToProps/* , null */)(List);

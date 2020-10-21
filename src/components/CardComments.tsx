@@ -38,7 +38,12 @@ const CardComments = (props: CardCommentsProps) => {
         onSubmit={(e) => props.addComments(e, input, props.name, props.listTitle)}
       >
         <h4>Add comments:</h4>
-        <input type="text" placeholder='Comments..' value={input} onChange={handleChange} />
+        <input
+          type="text"
+          placeholder='Comments..'
+          value={input}
+          onChange={handleChange}
+        />
       </form>
     </div>
   );

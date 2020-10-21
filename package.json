@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:server": "tsc -p ./tsconfig.node.json",
+    "server": "npm run build:server && node serverBuild/server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"

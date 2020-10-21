@@ -26,7 +26,8 @@ const Card = ({ id, name, comments, listTitle }: CardProps) => {
   };
 
   return (
-    <div 
+    <div
+      id={id}
       className='cards'
       draggable='true'
       onDragStart={dragStart}

@@ -27,6 +27,7 @@ const List = (props: ListProps) => {
     e.preventDefault();
 
     const card_id = e.dataTransfer.getData('card_id');
+    console.log('card_id onDrop in List: ', card_id);
 
     const card = document.getElementById(card_id)!;
     card.style.display = 'block';

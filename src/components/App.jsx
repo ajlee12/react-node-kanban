@@ -5,7 +5,7 @@ import List from './List';
 
 const App = () => {
   return (
-    <div className="App" style={styles}>
+    <div id='App' style={styles}>
       <List id='list-Applied' listTitle={'Applied'} />
       <List id='list-PhoneScreen' listTitle={'PhoneScreen'} />
     </div>

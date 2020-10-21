@@ -7,10 +7,9 @@ interface CardCommentsProps {
   id: string,
   name: string,
   listTitle: string,
-  addComments: ReturnType<typeof mapDispatchToProps> | any,
+  // addComments: ReturnType<typeof mapDispatchToProps> | any,
+  addComments: (e: FormEvent, inputText: string, name: string, listTitle: string) => void,
 };
-
-// let inputText: string;
 
 const CardComments = (props: CardCommentsProps) => {
   const [input, setInputValue] = useState('');

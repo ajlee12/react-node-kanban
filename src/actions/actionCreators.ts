@@ -22,6 +22,12 @@ const addCard = (name: string, comments: string) => ({
   }
 });
 
+// Need an addCardThunk async action to 
+// 1. Hit server to save card to DB
+// 2. Get document's ID
+// 3. Dispatch addCard to store with such ID and other payload.
+
+
 const actions = {
   addComments,
   addCard,

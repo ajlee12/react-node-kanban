@@ -1,11 +1,24 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import ModalForm from './ModalForm';
+import actions from '../actions/actionCreators';
 
 Modal.setAppElement('#root');
 
+interface AddCardButtonProps {
+  // addCard: ReturnType<typeof mapDispatchToProps>,
+  addCard: (name: string, comments: string) => void,
+};
 
-const AddCardButton = () => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addCard: (name: string, comments: string) => {
+    dispatch(actions.addCard(name, comments))
+  },
+});
+
+const AddCardButton = (props: AddCardButtonProps) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const openModal = () => {
@@ -24,6 +37,7 @@ const AddCardButton = () => {
 
   const submitApp = (name: string, comments: string) => {
     // console.log(`name: ${name}, comments: ${comments}`);
+    props.addCard(name, comments);
   };
 
   return (
@@ -46,4 +60,4 @@ const AddCardButton = () => {
   );
 };
 
-export default AddCardButton;
+export default connect(null, mapDispatchToProps)(AddCardButton);

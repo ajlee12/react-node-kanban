@@ -26,19 +26,24 @@ const initialState: CardsState = {
 };
 
 const cardsReducer = (state: {[ key: string ]: any } = initialState, action: CardsAction) => {
+  let id: string;
+  let newComments: string;
+  let name: string;
+  let status: string;
+  
   switch (action.type) {
     case types.ADD_COMMENTS:
       // console.log('action payload (cardsReducer): ', action.payload);
       // console.log('payload.id (cardsReducer): ', action.payload.id);
       // console.log('payload.comments (cardsReducer): ', action.payload.comments);
       
-      const id: string = action.payload.id;
-      const newComments: string = action.payload.comments;
-      const name: string = action.payload.name;
-      const status: string = action.payload.status;
+      id = action.payload.id;
+      newComments = action.payload.comments;
+      name = action.payload.name;
+      status = action.payload.status;
       
-      // Find and update the targetted applicant's comments.
       const applicants: CardContents[] = state[status].map((app: CardContents) => {
+        // Find and update the targetted applicant's comments.
         if (app.id === id && app.name === name) {
           let updatedComments: string = '';
 
@@ -58,6 +63,7 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
 
           return targettedApp;
         } else {
+          // Make shallow copy of each applicant.
           return { ...app };
         }
       });
@@ -68,9 +74,23 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
       };
 
     case types.ADD_CARD:
+      const newCard = {
+        id: action.payload.id,
+        name: action.payload.name,
+        status: 'Applied',
+        comments: action.payload.comments,
+      };
 
-      return state;
+      // Make shallow copies.
+      const oldAppliedCards = state.Applied.map((app: CardContents) => {
+        return { ...app };
+      });
       
+      return {
+        ...state,
+        Applied: [ ...oldAppliedCards, newCard ],
+      };
+
     default:
       return state;
   }

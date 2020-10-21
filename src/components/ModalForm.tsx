@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties, ChangeEvent } from 'react';
+import React, { useState, CSSProperties, ChangeEvent, FormEvent } from 'react';
 
 interface ModalFormProps {
   submitApp: (name: string, comments: string) => void,
@@ -21,9 +21,10 @@ const ModalForm = (props: ModalFormProps) => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
     // console.log('updated formData state: ', formData);
-    
+    e.preventDefault();
+
     props.submitApp(formData.name, formData.comments);
   };
 

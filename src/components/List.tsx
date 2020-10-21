@@ -2,7 +2,6 @@ import React, { DragEvent } from 'react';
 import { connect } from 'react-redux';
 import { CardContents, AppState } from '../store/types';
 import Card from './Card';
-import AddCardButton from './AddCardButton';
 
 const mapStateToProps = (store: AppState) => ({
   Applied: store.cards.Applied,
@@ -18,6 +17,7 @@ interface ListPropsKeys {
 };
 
 interface ListProps extends ListPropsKeys { 
+  // id: string,
   // listTitle: string,
   Applied: CardContents[],
   PhoneScreen: CardContents[],
@@ -53,7 +53,6 @@ const List = (props: ListProps) => {
       id={props.id}
     >
       <h2>{props.listTitle}</h2>
-      <AddCardButton />
       {props[listTitle].map((card: CardContents, i: number) => {
         return ( 
           <Card
@@ -69,4 +68,4 @@ const List = (props: ListProps) => {
   );
 };
 
-export default connect(mapStateToProps, null)(List);
+export default connect(mapStateToProps)(List);

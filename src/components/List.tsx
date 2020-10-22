@@ -6,7 +6,7 @@ import actions from '../actions/actionCreators';
 import Card from './Card';
 
 const mapStateToProps = (store: AppState) => (
-  store.cards
+  { cards: store.cards }
   // {
   //   Applied: store.cards.Applied,
   //   PhoneScreen: store.cards.PhoneScreen,
@@ -86,22 +86,32 @@ const List = (props: ListProps) => {
       className='lists'
       id={props.id}
     >
-      <h2>{props.listTitle}</h2>
-      {props[listTitle].map((card: CardContents, i: number) => {
+      <h2>{listTitle}</h2>
+      { /* The old mapping to each column approach. */
+        /* {props[listTitle].map((card: CardContents, i: number) => {
         return ( 
           <Card
             key={`${props.listTitle}${i}`}
             
-            /*
-             * This id will later be replaced by the Mongo-generated ID.
-             */
+            // This id will later be replaced by the Mongo-generated ID.
             id={`${i}${card.name}`}
             name={card.name}
             comments={card.comments}
             listTitle={listTitle}
           />
         );
-      })}
+      })} */}
+      {props.cards.map((card: CardContents) => {
+        if (card.status === listTitle) {
+          return <Card
+            id={card.id}
+            name={card.name}
+            comments={card.comments}
+            listTitle={listTitle}
+          />
+        }
+      })
+      }
     </div>
   );
 };

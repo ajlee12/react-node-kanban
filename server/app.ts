@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
 
 import cards from './cards/cardsRoutes';
 
@@ -7,6 +8,8 @@ const app = express();
 app.use(express.json());
 
 app.use('/cards', cards);
+
+app.use('/', express.static(path.join(__dirname, '../build')));
 
 /*
  * Bad route handler

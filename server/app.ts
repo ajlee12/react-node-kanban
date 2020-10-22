@@ -14,7 +14,7 @@ app.use('/cards', cards);
 app.use((req: Request, res: Response, next: NextFunction) => {
   const err = new Error('Not Found');
   
-  res.status(404).json(err);
+  return res.status(404).json(err);
 });
 
 /*

@@ -6,10 +6,14 @@ services:
     container_name: collov-server
     ports:
       - "4000:4000"
-    volumes: 
-      # Persist the node_modules in a named vol.
-      - node_modules:/usr/src/app/node_modules
-    command: ["node", "serverBuild/server.js"]
+    # volumes: 
+      # Persist the node_modules in a named vol. (only for development)
+      # - node_modules:/usr/src/app/node_modules
+      
+    # For debugging only:
+    # command: ["sleep", "40s"]
+
+    command: ["node", "./serverBuild/server.js"]
     depends_on:
       - mongo-db
     
@@ -23,5 +27,5 @@ services:
     - collov-mongo-vol:/data/db
 
 volumes:
-  node_modules:
+  # node_modules:
   collov-mongo-vol:

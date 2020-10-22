@@ -1,7 +1,6 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import * as types from '../constants/actionTypes';
-// import RootState from '../store/index';
 import { CardsState } from '../store/types';
 
 // 'status' indicates which list the applicant is on.
@@ -44,6 +43,7 @@ const addCard = (
 // 3. Dispatch addCard to store with such ID and other payload.
 const addCardThunk = (
   name: string,
+  status: string,
   comments?: string,
   performance?: string
 ): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
@@ -52,6 +52,7 @@ const addCardThunk = (
       method: 'POST',
       body: JSON.stringify({
         name,
+        status,
         comments,
         performance,
       }),
@@ -83,11 +84,55 @@ const changeStatus = (
   },
 });
 
+// When a card gets picked up, remove it from the store immediately
+// (instead of when it lands on a different List).
+const removeCurrentStatus = (
+  id: string,
+  name: string,
+  currentStatus: string,
+) => ({
+  type: types.REMOVE_CURRENT_STATUS,
+  payload: {
+    id,
+    name,
+    currentStatus,
+  },
+});
+
+/* Not necessary!
+const removeCurrentStatusThunk = (
+  id: string,
+  name: string,
+  status: string
+): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
+  try {
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify({
+        id,
+        name,
+        status,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    };
+    // Resp. data should be a Mongo-generated ID (string) for the new card.
+    const response = await fetch('/cards', options);
+    console.log(`response from removeCurrentStatusThunk's fetch: ${response}`);
+
+    // dispatch(addCard(data, name, comments, performance));
+  } catch(err) {
+    console.log(`Error in addCardThunk's fetch: ${err}`);
+  }
+}
+*/
+
 const actions = {
   addComments,
   addCard,
   changeStatus,
   addCardThunk,
+  removeCurrentStatus,
+  // removeCurrentStatusThunk,
 };
 
 export default actions;

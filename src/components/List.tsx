@@ -88,6 +88,10 @@ const List = (props: ListProps) => {
         return ( 
           <Card
             key={`${props.listTitle}${i}`}
+            
+            /*
+             * This id will later be replaced by the Mongo-generated ID.
+             */
             id={`${i}${card.name}`}
             name={card.name}
             comments={card.comments}

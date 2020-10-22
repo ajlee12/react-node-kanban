@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const URL = 'mongodb://localhost:27017/collov-board';
+// Changed `localhost` to `collov-mongo` for inter-container comm.
+const URL = 'mongodb://collov-mongo:27017/collov-board';
 
 mongoose.connect(URL, {
   // options for the connect method to parse the URI
@@ -8,7 +9,7 @@ mongoose.connect(URL, {
   useUnifiedTopology: true,
 
   // sets the name of the DB that our collections are part of
-  dbName: 'collov-board',
+  // dbName: 'collov-board',
 })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err: Error) => console.log(err));

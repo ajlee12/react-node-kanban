@@ -26,7 +26,16 @@ class CardsController {
   }
   
   async changeStatus(req: Request, res: Response, next: NextFunction) {
+    const { id, newComments } = req.body;
+
     try {
+      const cardDoc = await Card.findOneAndUpdate(
+        {
+          _id: id,
+        }, 
+        {
+          comments: newComments,
+        });
       
       return next();
     } catch(err) {

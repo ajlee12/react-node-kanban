@@ -1,0 +1,27 @@
+version: '3.0'
+
+services:
+  server:
+    image: collov-server
+    container_name: collov-server
+    ports:
+      - "4000:4000"
+    volumes: 
+      # Persist the node_modules in a named vol.
+      - node_modules:/usr/src/app/node_modules
+    command: ["node", "serverBuild/server.js"]
+    depends_on:
+      - mongo-db
+    
+  mongo-db:
+    image: mongo:3
+    container_name: collov-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+    # Persist the data that make up our DB between container starts/stops. 
+    - collov-mongo-vol:/data/db
+
+volumes:
+  node_modules:
+  collov-mongo-vol:

@@ -8,8 +8,6 @@ RUN npm install
 
 COPY ./serverBuild /usr/src/app
 
-# RUN tsc
-
 EXPOSE 4000
 
-ENTRYPOINT ["node", "serverBuild/server.js"]
+# ENTRYPOINT ["node", "serverBuild/server.js"]

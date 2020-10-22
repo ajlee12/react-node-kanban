@@ -2,31 +2,21 @@
 import * as types from '../constants/actionTypes';
 import { CardsState, CardContents, CardsAction } from '../store/types';
 
-const initialState: CardsState = [];
-/* Old initialState (an object)
- {
-  Applied: [
-    {
-      id: '0Eevi',
-      name: 'Eevi',
-      status: 'Applied',
-      comments: ['10 years exp!'],
-    }
-  ],
-  PhoneScreen: [
-    {
-      id: '0Pixie',
-      name: 'Pixie',
-      status: 'Phone Screen',
-      comments: ['Just starting out..'],
-    },
-  ],
-  OnSite: [],
-  Offered: [],
-  Accepted: [],
-  Rejected: [],
-};
-*/
+const initialState: CardsState = [
+  // Hard-coded cards.
+  {
+    id: '0Eevi',
+    name: 'Eevi',
+    status: 'Applied',
+    comments: ['10 years exp!'],
+  },
+  {
+    id: '0Pixie',
+    name: 'Pixie',
+    status: 'PhoneScreen',
+    comments: ['Just starting out..'],
+  },
+];
 
 const cardsReducer = (state = initialState, action: CardsAction) => {
   console.log('********');

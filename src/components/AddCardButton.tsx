@@ -1,29 +1,38 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { Action } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 import ModalForm from './ModalForm';
 import actions from '../actions/actionCreators';
+import { CardsState } from '../store/types';
 
 Modal.setAppElement('#root');
 
-/*
+/**
  * This button component opens up a modal that contains a form
  * that needs to be filled out in order to add an applicant.
  */
-
-interface AddCardButtonProps {
-  // addCard: ReturnType<typeof mapDispatchToProps>,
-  addCard: (name: string, comments: string) => void,
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addCard: (name: string, comments: string) => {
-    dispatch(actions.addCard(name, comments))
+const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
+  addCardThunk: (name: string, comments: string) => {
+    dispatch(actions.addCardThunk(name, comments))
   },
+  // bindActionCreators(actions.addCardThunk, dispatch);
 });
 
-const AddCardButton = (props: AddCardButtonProps) => {
+const connector = connect(null, mapDispatchToProps);
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+// type Props = ReduxProps & {
+//   backgroundColor: string
+// }
+
+// interface AddCardButtonProps {
+//   addCardThunk: (name: string, comments: string) => Promise<void>,
+// };
+
+const AddCardButton = (props: ReduxProps) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const openModal = () => {
@@ -42,7 +51,7 @@ const AddCardButton = (props: AddCardButtonProps) => {
 
   const submitApp = (name: string, comments: string) => {
     // console.log(`name: ${name}, comments: ${comments}`);
-    props.addCard(name, comments);
+    props.addCardThunk(name, comments);
   };
 
   return (
@@ -65,4 +74,4 @@ const AddCardButton = (props: AddCardButtonProps) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(AddCardButton);
+export default connector(AddCardButton);

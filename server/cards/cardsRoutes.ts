@@ -8,7 +8,7 @@ const cardsController = new CardsController();
 router.post('/',
   cardsController.addCard,
   (req: Request, res: Response) => {
-    res.status(200).json(res.locals.newCardId);
+    res.status(200).set({'Content-Type': 'text/plain'}).send(res.locals.newCardId);
   }
 );
 

@@ -1,6 +1,21 @@
 # react-node-kanban
 A toy ​kanban board​ to manage the hiring process, similar to ​Trello.
 
+# To run the application
+**DO NOT RUN `npm install`!** No need to have the node_modules locally.
+
+**DO:**
+
+1. Install TypeScript to get `tsc`:
+    - `npm i typescript -g`
+2. Build the app and Docker images:
+    - `npm run build:all`
+3. Run the containers in tandem:
+    - `docker-compose up`
+4. View the app on `localhost:4000`
+
+
+# Features, Techs, and Notes
 ## TypeScript
 TypeScript was used throughout the code base for the maintainability and scalability benefits brought by strong typing.
 
@@ -21,6 +36,15 @@ These two DOM methods are particularly important to achieve this feature.
 - [`DataTransfer.getData()`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData)
 
 And [this tutorial](https://www.youtube.com/watch?v=-MfTv5VRM0A&t=5s) was especially helpful.
+
+---
+
+```
+Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+```
+This bug is a huge pain! It happens right when a dragged card lands in a new List. 
+
+Considered using React DnD library to solve the problem. However, before resorting to that, I'll try removing the card from store _at the moment it gets picked up_, instead of when it lands on another List.
 
 ## [react-modal](http://reactcommunity.org/react-modal/)
 This package was used to create the modal form for adding an applicant card. 

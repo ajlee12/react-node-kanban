@@ -4,6 +4,13 @@ const router = express.Router();
 
 const cardsController = new CardsController();
 
+router.get('/',
+  cardsController.getCardsFromDb,
+  (req: Request, res: Response) => {
+    res.status(200).set({'Content-Type': 'application/json'}).send(res.locals.cards);
+  }
+);
+
 // Creating a card.
 router.post('/',
   cardsController.addCard,

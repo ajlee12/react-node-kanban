@@ -24,7 +24,18 @@ services:
       - "27017:27017"
     volumes:
     # Persist the data that make up our DB between container starts/stops. 
-    - collov-mongo-vol:/data/db
+      - collov-mongo-vol:/data/db
+
+  nginx:
+    image: nginx:alpine
+    container_name: production_nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./build:/srv/www/static"
+      - "./default.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - server
 
 volumes:
   # node_modules:

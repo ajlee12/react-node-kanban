@@ -14,8 +14,8 @@ Modal.setAppElement('#root');
  * that needs to be filled out in order to add an applicant.
  */
 const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
-  addCardThunk: (name: string, comments: string) => {
-    dispatch(actions.addCardThunk(name, comments))
+  addCardThunk: (name: string, comments: string, status: string) => {
+    dispatch(actions.addCardThunk(name, comments, status))
   },
   // bindActionCreators(actions.addCardThunk, dispatch);
 });
@@ -51,7 +51,7 @@ const AddCardButton = (props: ReduxProps) => {
 
   const submitApp = (name: string, comments: string) => {
     // console.log(`name: ${name}, comments: ${comments}`);
-    props.addCardThunk(name, comments);
+    props.addCardThunk(name, comments, 'Applied');
   };
 
   return (

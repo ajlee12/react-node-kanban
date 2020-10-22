@@ -6,7 +6,7 @@ import { CardsState } from '../store/types';
 // 'status' indicates which list the applicant is on.
 const addComments = (
   id: string,
-  comments: string[],
+  comments: string,
 ) => ({
   type: types.ADD_COMMENTS,
   payload: {
@@ -17,7 +17,7 @@ const addComments = (
 
 const addCommentsThunk = (
   id: string,
-  comments: string[],
+  comments: string,
 ): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
   try {
     const options = {
@@ -64,16 +64,14 @@ const addCardThunk = (
   name: string,
   status: string,
   comments?: string,
-  performance?: string
 ): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
   try {
     const options = {
       method: 'POST',
       body: JSON.stringify({
         name,
-        status,
         comments,
-        performance,
+        status,
       }),
       headers: {'Content-Type': 'application/json'},
     };
@@ -147,6 +145,7 @@ const removeCurrentStatusThunk = (
 
 const actions = {
   addComments,
+  addCommentsThunk,
   addCard,
   changeStatus,
   addCardThunk,

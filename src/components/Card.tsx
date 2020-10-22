@@ -43,25 +43,21 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
     }, 0);
   };
 
+  /*
   const dragEnd = (e: DragEvent) => {
     const target = e.target as HTMLDivElement;
 
-    // e.dataTransfer.dropEffect = "copy";
+    e.dataTransfer.dropEffect = "copy";
 
-    /*
-     * Try removing the dragged card from the store when it's being dragged.
-     * See if this solves the bug of `Failed to execute 'removeChild' on 'Node'`.
-     */
     const cardId = target.id;
     const name = target.dataset.name!;
     const currentStatus = target.dataset.status!;
 
-    // removeCurrentStatus(cardId, name, currentStatus);
+    removeCurrentStatus(cardId, name, currentStatus);
   }
+  */
 
-
-  
-  //This cloning func may NOT be needed..
+  /* This cloning func may NOT be needed..
   const cloneNode = (parent: (Node & ParentNode), child: HTMLDivElement) => {
     // clone child and append to parent.
     const clone = child.cloneNode(true);
@@ -69,7 +65,7 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
     // parent.appendChild(clone);
     return clone;
   };
-
+  */
 
   const dragOver = (e: DragEvent) => {
     e.stopPropagation();
@@ -83,7 +79,7 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
       className='cards'
       draggable='true'
       onDragStart={dragStart}
-      onDragEnd={dragEnd}
+      // onDragEnd={dragEnd}
       onDragOver={dragOver}
     >
       <span>Name: {name}</span>

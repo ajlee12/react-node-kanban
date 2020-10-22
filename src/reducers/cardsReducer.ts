@@ -1,7 +1,10 @@
+// import CardComments from '../components/CardComments';
 import * as types from '../constants/actionTypes';
 import { CardsState, CardContents, CardsAction } from '../store/types';
 
-const initialState: CardsState = {
+const initialState: CardsState = [];
+/* Old initialState (an object)
+ {
   Applied: [
     {
       id: '0Eevi',
@@ -23,22 +26,26 @@ const initialState: CardsState = {
   Accepted: [],
   Rejected: [],
 };
+*/
 
-const cardsReducer = (state: {[ key: string ]: any } = initialState, action: CardsAction) => {
-  // console.log('action payload (cardsReducer): ', action.payload);
+const cardsReducer = (state = initialState, action: CardsAction) => {
+  console.log('********');
+  console.log('action payload (cardsReducer): ', action.payload);
+  console.log('');
+
   let id: string;
   let newComments: string;
-  let name: string;
+  // let name: string;
   let status: string;
-  let oldApplicants: CardContents[];
+  // let oldApplicants: CardContents[];
+  let newStateArray: CardContents[];
   
   switch (action.type) {
     case types.ADD_COMMENTS:
       id = action.payload.id;
       newComments = action.payload.comments;
-      name = action.payload.name;
-      status = action.payload.status;
       
+      /*
       oldApplicants = state[status].map((app: CardContents) => {
         // Find and update the targetted applicant's comments.
         if (app.id === id && app.name === name) {
@@ -64,30 +71,33 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
           return { ...app };
         }
       });
-
-      return {
-        ...state,
-        [status]: [ ...oldApplicants ],
-      };
+      */
+      newStateArray = state.map((card) => {
+        return card.id === id ? {
+          ...card,
+          comments: card.comments.concat(newComments),
+        } :
+        { ...card }
+      })
+            
+      return newStateArray;
 
     case types.ADD_CARD:
       const newCard = {
         id: action.payload.id,
         name: action.payload.name,
         status: 'Applied',
-        comments: action.payload.comments,
+        comments: [action.payload.comments],
       };
 
-      // Make shallow copies.
-      oldApplicants = state.Applied.map((app: CardContents) => {
-        return { ...app };
+      // Make shallow copies of cards.
+      newStateArray = state.map((card) => {
+        return { ...card };
       });
       
-      return {
-        ...state,
-        Applied: [ ...oldApplicants, newCard ],
-      };
+      return newStateArray.concat(newCard);
 
+    /*
     // Remove a card from state when it gets picked up from the DOM.
     case types.REMOVE_CURRENT_STATUS:
       // Target the correct status and filter out the card of concern.
@@ -103,50 +113,25 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
         ...state,
         [status]: updatedApplicants,
       };
+      */
 
-    // When a card's status prop changes, it should also 
-    // be moved to the array corrersponding to this new status.
+    // When a card's status prop changes, its status in store is also updated.
     case types.CHANGE_STATUS:
-      // console.log(`reducer: CHANGE_STATUS payload:`, action.payload);
       id = action.payload.id;
-      name = action.payload.name;
+      status = action.payload.status;
       
-      const oldStatus = action.payload.oldStatus;
-      const newStatus = action.payload.newStatus;
+      // const oldStatus = action.payload.oldStatus;
+      // const newStatus = action.payload.newStatus;
 
-      // Save the old comments, as it's the only value not included in payload.
-      let originalComments: string[];
-      
-      console.log('state[oldStatus] BEFORE:', state[oldStatus]);
-
-      let dupesCount = 0;
-      // Remove the targetted app from its original array.
-      oldApplicants = state[oldStatus].filter((app: CardContents, i: number) => {
-        if (app.id !== id && app.name !== name && dupesCount < 1) {
-          dupesCount += 1;
-          // return app.id !== id && app.name !== name;
-          return true;
-        } else if (dupesCount < 1) {
-          originalComments = app.comments;
-        }
-        return false;
-      });
-
-      console.log('oldApplicants:', oldApplicants);
-
-      const updatedTargettedApp = {
-        id,
-        name,
-        status: newStatus,
-        comments: originalComments!,
-      };
-      
-      // Add to array that corresponds to the new status.
-      return {
-        ...state,
-        [oldStatus]: oldApplicants,
-        [newStatus]: [...state[newStatus], updatedTargettedApp],
-      };
+      newStateArray = state.map((card) => {
+        return card.id === id ? {
+          ...card,
+          status,
+        } :
+        { ...card }
+      })
+            
+      return newStateArray;
 
     default:
       return state;

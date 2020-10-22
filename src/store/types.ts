@@ -5,14 +5,16 @@ export interface CardContents {
   comments: string[],
 };
 
-export interface CardsState {
-  Applied: CardContents[],
-  PhoneScreen: CardContents[],
-  OnSite: CardContents[],
-  Offered: CardContents[],
-  Accepted: CardContents[],
-  Rejected: CardContents[],
-};
+export type CardsState = CardContents[];
+// {
+//   Applied: CardContents[],
+//   PhoneScreen: CardContents[],
+//   OnSite: CardContents[],
+//   Offered: CardContents[],
+//   Accepted: CardContents[],
+//   Rejected: CardContents[],
+  
+// };
 
 export interface AppState {
   cards: CardsState,

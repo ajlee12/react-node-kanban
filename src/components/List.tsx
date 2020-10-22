@@ -5,14 +5,17 @@ import { CardContents, AppState } from '../store/types';
 import actions from '../actions/actionCreators';
 import Card from './Card';
 
-const mapStateToProps = (store: AppState) => ({
-  Applied: store.cards.Applied,
-  PhoneScreen: store.cards.PhoneScreen,
-  OnSite: store.cards.OnSite,
-  Offered: store.cards.Offered,
-  Accepted: store.cards.Accepted,
-  Rejected: store.cards.Rejected,
-});
+const mapStateToProps = (store: AppState) => (
+  store.cards
+  // {
+  //   Applied: store.cards.Applied,
+  //   PhoneScreen: store.cards.PhoneScreen,
+  //   OnSite: store.cards.OnSite,
+  //   Offered: store.cards.Offered,
+  //   Accepted: store.cards.Accepted,
+  //   Rejected: store.cards.Rejected,
+  // }
+);
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   changeStatus: (id: string, name: string, oldStatus: string, newStatus: string) => {

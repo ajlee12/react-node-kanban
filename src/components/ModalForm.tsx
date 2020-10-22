@@ -2,6 +2,7 @@ import React, { useState, CSSProperties, ChangeEvent, FormEvent } from 'react';
 
 interface ModalFormProps {
   submitApp: (name: string, comments: string) => void,
+  closeModal: () => void,
 };
 
 const initialFormData = Object.freeze({
@@ -26,6 +27,8 @@ const ModalForm = (props: ModalFormProps) => {
     e.preventDefault();
 
     props.submitApp(formData.name, formData.comments);
+
+    props.closeModal();
   };
 
   return (

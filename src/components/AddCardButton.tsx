@@ -67,7 +67,7 @@ const AddCardButton = (props: ReduxProps) => {
           <h2 ref={_subtitle => (subtitle = _subtitle)}>
             Add a New Applicant
           </h2>
-          <ModalForm submitApp={submitApp} />
+          <ModalForm submitApp={submitApp} closeModal={closeModal}/>
           <button onClick={closeModal}>Cancel</button>
         </Modal>
     </div>

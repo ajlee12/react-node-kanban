@@ -5,13 +5,13 @@ import CardComments from './CardComments';
 import actions from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  removeCurrentStatus: (
-    id: string,
-    name: string,
-    currentStatus: string,
-  ) => {
-    dispatch(actions.removeCurrentStatus(id, name, currentStatus));
-  },
+  // removeCurrentStatus: (
+  //   id: string,
+  //   name: string,
+  //   currentStatus: string,
+  // ) => {
+  //   dispatch(actions.removeCurrentStatus(id, name, currentStatus));
+  // },
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -25,7 +25,7 @@ type CardProps = ReduxProps & {
   listTitle: string,
 };
 
-const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps) => {
+const Card = ({ /* removeCurrentStatus, */ id, name, comments, listTitle }: CardProps) => {
   const dragStart = (e: DragEvent) => {
     const target = e.target as HTMLDivElement;
 

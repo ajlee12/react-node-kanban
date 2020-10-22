@@ -18,8 +18,8 @@ const mapStateToProps = (store: AppState) => (
 );
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  changeStatus: (id: string, name: string, oldStatus: string, newStatus: string) => {
-    dispatch(actions.changeStatus(id, name, oldStatus, newStatus));
+  changeStatus: (id: string, status: string) => {
+    dispatch(actions.changeStatus(id, status));
   },
 });
 

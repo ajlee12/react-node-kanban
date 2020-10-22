@@ -51,7 +51,7 @@ const AddCardButton = (props: ReduxProps) => {
 
   const submitApp = (name: string, comments: string) => {
     // console.log(`name: ${name}, comments: ${comments}`);
-    props.addCardThunk(name, comments, 'Applied');
+    props.addCardThunk(name, 'Applied', comments);
   };
 
   return (

@@ -45,14 +45,12 @@ const addCard = (
   id: string,
   name: string,
   comments?: string,
-  performance?: string
 ) => ({
   type: types.ADD_CARD,
   payload: {
     id,
     name,
     comments,
-    performance,
   }
 });
 
@@ -76,10 +74,11 @@ const addCardThunk = (
       headers: {'Content-Type': 'application/json'},
     };
     // Resp. data should be a Mongo-generated ID (string) for the new card.
-    const data = await fetch('/cards', options);
-    console.log(`response from addCardThunk's fetch: ${data}`);
+    const response = await fetch('/cards', options);
+    const newCardID = await response.text();
+    // console.log(`response from addCardThunk's fetch: ${newCardID}`);
 
-    // dispatch(addCard(data, name, comments, performance));
+    dispatch(addCard(newCardID, name, comments));
   } catch(err) {
     console.log(`Error in addCardThunk's fetch: ${err}`);
   }
@@ -88,33 +87,29 @@ const addCardThunk = (
 // When a card is dragged from a list to another, its status changes.
 const changeStatus = (
   id: string,
-  name: string,
-  oldStatus: string,
-  newStatus: string
+  status: string
 ) => ({
   type: types.CHANGE_STATUS,
   payload: {
     id,
-    name,
-    oldStatus,
-    newStatus,
+    status
   },
 });
 
 // When a card gets picked up, remove it from the store immediately
 // (instead of when it lands on a different List).
-const removeCurrentStatus = (
-  id: string,
-  name: string,
-  currentStatus: string,
-) => ({
-  type: types.REMOVE_CURRENT_STATUS,
-  payload: {
-    id,
-    name,
-    currentStatus,
-  },
-});
+// const removeCurrentStatus = (
+//   id: string,
+//   name: string,
+//   currentStatus: string,
+// ) => ({
+//   type: types.REMOVE_CURRENT_STATUS,
+//   payload: {
+//     id,
+//     name,
+//     currentStatus,
+//   },
+// });
 
 /* Not necessary!
 const removeCurrentStatusThunk = (
@@ -149,7 +144,7 @@ const actions = {
   addCard,
   changeStatus,
   addCardThunk,
-  removeCurrentStatus,
+  // removeCurrentStatus,
   // removeCurrentStatusThunk,
 };
 

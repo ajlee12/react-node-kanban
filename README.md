@@ -11,6 +11,10 @@ React `useState` Hooks were also used whenever it made more sense to _not_ keep 
 
 Redux Thunk middleware was used to manage async actions that simultaneously made DB calls and dispatched actions to the store.
 
+[Typing the `connect` higher order component](https://redux.js.org/recipes/usage-with-typescript#typing-the-connect-higher-order-component):
+- Use the `ConnectedProps<T>` type exported by @types/react-redux^7.1.2 to infer the types of the props from connect automatically. This requires splitting the `connect(mapState, mapDispatch)(MyComponent)` call into two parts.
+- Example: `AddCardButton.tsx`
+
 ## Drag and Drop
 These two DOM methods are particularly important to achieve this feature.
 - [`DataTransfer.setData()`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData)

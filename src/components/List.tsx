@@ -47,7 +47,7 @@ const List = (props: ListProps) => {
     console.log('cardd_id in drop():', card_id);
     
     const card = document.getElementById(card_id)!;
-    card.style.display = 'block';
+    card.style.display = 'flex';
     
     const target = e.target as HTMLDivElement;
     target.appendChild(card);
@@ -62,7 +62,7 @@ const List = (props: ListProps) => {
     // setTimeout(() => props.changeStatus(id, name, oldStatus, newStatus), 0);
     
     // The conditional check prevents dragging to own List that led to duplicating the card.
-    if (oldStatus !== newStatus) props.changeStatus(id, name, oldStatus, newStatus);
+    // if (oldStatus !== newStatus) props.changeStatus(id, name, oldStatus, newStatus);
     
     card.setAttribute('data-status', newStatus!);
     // console.log('card after setAttrib.:', card);

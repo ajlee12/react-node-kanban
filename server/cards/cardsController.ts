@@ -3,7 +3,7 @@ import Card from './cardsModel';
 
 class CardsController {
   async addCard(req: Request, res: Response, next: NextFunction) {
-    const { name, comments } = req.body;
+    const { name, comments, status } = req.body;
     console.log('*** inside CardsController.addCard ***\n', `name: ${name}, comments: ${comments}`);
 
     try {
@@ -11,6 +11,7 @@ class CardsController {
       const cardDoc = await Card.create({
         name,
         comments,
+        status,
       });
 
       console.log(`cardDoc (controller.addCard): ${cardDoc}`);

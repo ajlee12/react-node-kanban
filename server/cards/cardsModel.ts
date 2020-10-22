@@ -20,6 +20,10 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   comments: String,
+  status: {
+    type: String,
+    required: true,
+  },
   performance: Number,
 });
 

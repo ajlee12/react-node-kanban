@@ -1,23 +1,19 @@
-import React, { DragEvent } from 'react';
-import { Dispatch } from 'redux';
+import React, { useState, useEffect, DragEvent } from 'react';
+import { Action } from 'redux';
 import { connect } from 'react-redux';
-import { CardContents, AppState } from '../store/types';
+import { ThunkDispatch } from 'redux-thunk';
+import { CardsState, CardContents, AppState } from '../store/types';
 import actions from '../actions/actionCreators';
 import Card from './Card';
 
 const mapStateToProps = (store: AppState) => (
   { cards: store.cards }
-  // {
-  //   Applied: store.cards.Applied,
-  //   PhoneScreen: store.cards.PhoneScreen,
-  //   OnSite: store.cards.OnSite,
-  //   Offered: store.cards.Offered,
-  //   Accepted: store.cards.Accepted,
-  //   Rejected: store.cards.Rejected,
-  // }
 );
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
+  getAllCardsFromDbThunk: () => {
+    dispatch(actions.getAllCardsFromDbThunk());
+  },
   changeStatus: (id: string, status: string) => {
     dispatch(actions.changeStatus(id, status));
   },
@@ -37,6 +33,12 @@ interface ListProps {
 };
 
 const List = (props: ListProps) => {
+  const [cards, getCards] = useState([]);
+
+  useEffect(() => {
+    getCards(props.getAllCardsFromDbThunk());
+  }, []);
+
   const listTitle: string = props.listTitle;
   
   /*
@@ -62,13 +64,8 @@ const List = (props: ListProps) => {
     const newStatus = target.childNodes.item(0).textContent;
 
     console.log(`In List (drop func.)\n`, `id: ${id}, name: ${name}, oldStatus: ${oldStatus}, newStatus: ${newStatus}`);
-    // setTimeout(() => props.changeStatus(id, name, oldStatus, newStatus), 0);
-    
-    // The conditional check prevents dragging to own List that led to duplicating the card.
-    // if (oldStatus !== newStatus) props.changeStatus(id, name, oldStatus, newStatus);
-    
+
     card.setAttribute('data-status', newStatus!);
-    // console.log('card after setAttrib.:', card);
   };
 
   const dragOver = (e: DragEvent) => {
@@ -87,21 +84,7 @@ const List = (props: ListProps) => {
       id={props.id}
     >
       <h2>{listTitle}</h2>
-      { /* The old mapping to each column approach. */
-        /* {props[listTitle].map((card: CardContents, i: number) => {
-        return ( 
-          <Card
-            key={`${props.listTitle}${i}`}
-            
-            // This id will later be replaced by the Mongo-generated ID.
-            id={`${i}${card.name}`}
-            name={card.name}
-            comments={card.comments}
-            listTitle={listTitle}
-          />
-        );
-      })} */}
-      {props.cards.map((card: CardContents) => {
+      {props.cards && props.cards.map((card: CardContents) => {
         if (card.status === listTitle) {
           return <Card
             id={card.id}

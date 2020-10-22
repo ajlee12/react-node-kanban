@@ -27,7 +27,10 @@ const CardComments = (props: CardCommentsProps) => {
         className='input-form'
         id={props.id}
         name={props.name}
-        onSubmit={(e) => props.addComments(e, input, props.name, props.listTitle)}
+        onSubmit={(e) => {
+          props.addComments(e, input, props.name, props.listTitle);
+          setInputValue('');
+        }}
       >
         <h4>Add comments:</h4>
         <span className='input-span'>

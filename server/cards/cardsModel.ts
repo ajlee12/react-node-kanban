@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // Changed `localhost` to `collov-mongo` for inter-container comm.
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development' ? true : false;
 
 const URL = isDev ? 'mongodb://localhost:27017/collov-board':
   'mongodb://collov-mongo:27017/collov-board';

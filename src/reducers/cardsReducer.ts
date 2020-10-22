@@ -4,18 +4,18 @@ import { CardsState, CardContents, CardsAction } from '../store/types';
 
 const initialState: CardsState = [
   // Hard-coded cards.
-  {
-    id: '0Eevi',
-    name: 'Eevi',
-    status: 'Applied',
-    comments: ['10 years exp!'],
-  },
-  {
-    id: '0Pixie',
-    name: 'Pixie',
-    status: 'PhoneScreen',
-    comments: ['Just starting out..'],
-  },
+  // {
+  //   id: '0Eevi',
+  //   name: 'Eevi',
+  //   status: 'Applied',
+  //   comments: ['10 years exp!'],
+  // },
+  // {
+  //   id: '0Pixie',
+  //   name: 'Pixie',
+  //   status: 'PhoneScreen',
+  //   comments: ['Just starting out..'],
+  // },
 ];
 
 const cardsReducer = (state = initialState, action: CardsAction) => {
@@ -86,6 +86,9 @@ const cardsReducer = (state = initialState, action: CardsAction) => {
       });
       
       return newStateArray.concat(newCard);
+
+    case types.SYNC_CARDS:
+      return action.payload;
 
     /*
     // Remove a card from state when it gets picked up from the DOM.

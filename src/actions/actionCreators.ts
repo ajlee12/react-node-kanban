@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import * as types from '../constants/actionTypes';
-import { CardsState } from '../store/types';
+import { CardContents, CardsState } from '../store/types';
 
 // 'status' indicates which list the applicant is on.
 const addComments = (
@@ -34,9 +34,9 @@ const addCommentsThunk = (
 
     dispatch(addComments(id, comments));
   } catch(err) {
-    console.log(`Error in addCardThunk's fetch: ${err}`);
+    console.log(`Error in addCommentsThunk's fetch: ${err}`);
   }
-}
+};
 
 // Note that every newly created card gets the "Applied" status
 // and goes into the Applied List. And we'll be using 
@@ -76,13 +76,12 @@ const addCardThunk = (
     // Resp. data should be a Mongo-generated ID (string) for the new card.
     const response = await fetch('/cards', options);
     const newCardID = await response.text();
-    // console.log(`response from addCardThunk's fetch: ${newCardID}`);
 
     dispatch(addCard(newCardID, name, comments));
   } catch(err) {
     console.log(`Error in addCardThunk's fetch: ${err}`);
   }
-}
+};
 
 // When a card is dragged from a list to another, its status changes.
 const changeStatus = (
@@ -96,47 +95,31 @@ const changeStatus = (
   },
 });
 
-// When a card gets picked up, remove it from the store immediately
-// (instead of when it lands on a different List).
-// const removeCurrentStatus = (
-//   id: string,
-//   name: string,
-//   currentStatus: string,
-// ) => ({
-//   type: types.REMOVE_CURRENT_STATUS,
-//   payload: {
-//     id,
-//     name,
-//     currentStatus,
-//   },
-// });
 
-/* Not necessary!
-const removeCurrentStatusThunk = (
-  id: string,
-  name: string,
-  status: string
-): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
+const syncCardsFromDbToStore = (cardsArray: CardContents[]) => ({
+  type: types.SYNC_CARDS,
+  payload: cardsArray,
+});
+
+const getAllCardsFromDbThunk = (): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
   try {
     const options = {
-      method: 'PUT',
-      body: JSON.stringify({
-        id,
-        name,
-        status,
-      }),
-      headers: {'Content-Type': 'application/json'},
+      method: 'GET',
     };
-    // Resp. data should be a Mongo-generated ID (string) for the new card.
+    // Resp. data should be an array of cards.
     const response = await fetch('/cards', options);
-    console.log(`response from removeCurrentStatusThunk's fetch: ${response}`);
+    const cardsArray = await response.json();
 
-    // dispatch(addCard(data, name, comments, performance));
+    dispatch(syncCardsFromDbToStore(cardsArray));
+
+    ///////////
+    return cardsArray;
   } catch(err) {
-    console.log(`Error in addCardThunk's fetch: ${err}`);
+    console.log(`Error in getAllCardsFromDbThunk's fetch: ${err}`);
   }
-}
-*/
+};
+
+
 
 const actions = {
   addComments,
@@ -144,8 +127,7 @@ const actions = {
   addCard,
   changeStatus,
   addCardThunk,
-  // removeCurrentStatus,
-  // removeCurrentStatusThunk,
+  getAllCardsFromDbThunk
 };
 
 export default actions;

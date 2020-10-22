@@ -2,7 +2,7 @@ export interface CardContents {
   id: string,
   name: string,
   status: string,
-  comments: string,
+  comments: string[],
 };
 
 export interface CardsState {

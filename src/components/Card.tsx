@@ -21,7 +21,7 @@ type ReduxProps = ConnectedProps<typeof connector>
 type CardProps = ReduxProps & {
   id: string,
   name: string,
-  comments: string,
+  comments: string[],
   listTitle: string,
 };
 
@@ -33,16 +33,8 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
 
     e.dataTransfer.setData('card_id', target.id);
 
-    /*
-     * Try updating the store and remove the dragged card as soon as it gets picked up.
-     * See if this solves the bug of `Failed to execute 'removeChild' on 'Node'`.
-     */
-    const cardId = target.id;
-    const name = target.dataset.name!;
-    const currentStatus = target.dataset.status!;
+    e.dataTransfer.effectAllowed = "copy";
 
-    removeCurrentStatus(cardId, name, currentStatus);
-    
     // This allows the card being dragged to disappear
     // from the original list but remains on the cursor.
     // If no timeout, the card would disappear altogether.
@@ -51,14 +43,33 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
     }, 0);
   };
 
-  /* This cloning func may NOT be needed..
+  const dragEnd = (e: DragEvent) => {
+    const target = e.target as HTMLDivElement;
+
+    // e.dataTransfer.dropEffect = "copy";
+
+    /*
+     * Try removing the dragged card from the store when it's being dragged.
+     * See if this solves the bug of `Failed to execute 'removeChild' on 'Node'`.
+     */
+    const cardId = target.id;
+    const name = target.dataset.name!;
+    const currentStatus = target.dataset.status!;
+
+    // removeCurrentStatus(cardId, name, currentStatus);
+  }
+
+
+  
+  //This cloning func may NOT be needed..
   const cloneNode = (parent: (Node & ParentNode), child: HTMLDivElement) => {
     // clone child and append to parent.
     const clone = child.cloneNode(true);
     // console.log('cloning! Node =', clone);
-    parent.appendChild(clone);
+    // parent.appendChild(clone);
+    return clone;
   };
-  */
+
 
   const dragOver = (e: DragEvent) => {
     e.stopPropagation();
@@ -72,10 +83,12 @@ const Card = ({ removeCurrentStatus, id, name, comments, listTitle }: CardProps)
       className='cards'
       draggable='true'
       onDragStart={dragStart}
+      onDragEnd={dragEnd}
       onDragOver={dragOver}
     >
       <span>Name: {name}</span>
-      <span>Comments: {comments}</span>
+      {comments.map((comment) => <span>{comment}</span>)}
+      {/* <span>Comments: {comments}</span> */}
       <CardComments id={id} name={name} listTitle={listTitle} />
     </div>
   );

@@ -7,7 +7,7 @@ const initialState: CardsState = {
       id: '0Eevi',
       name: 'Eevi',
       status: 'Applied',
-      comments: '10 years exp!',
+      comments: ['10 years exp!'],
     }
   ],
   PhoneScreen: [
@@ -15,7 +15,7 @@ const initialState: CardsState = {
       id: '0Pixie',
       name: 'Pixie',
       status: 'Phone Screen',
-      comments: 'Just starting out..',
+      comments: ['Just starting out..'],
     },
   ],
   OnSite: [],
@@ -42,13 +42,13 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
       oldApplicants = state[status].map((app: CardContents) => {
         // Find and update the targetted applicant's comments.
         if (app.id === id && app.name === name) {
-          let updatedComments: string = '';
+          let updatedComments: string[] = [];
 
           // If an old comment exists, append new to old.
-          if (app.comments) {
-            updatedComments = `${app.comments}\n${newComments}`;
+          if (app.comments.length) {
+            updatedComments = [...app.comments, newComments];
           } else {
-            updatedComments = newComments;
+            updatedComments = [newComments];
           }
 
           const targettedApp = {
@@ -88,6 +88,22 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
         Applied: [ ...oldApplicants, newCard ],
       };
 
+    // Remove a card from state when it gets picked up from the DOM.
+    case types.REMOVE_CURRENT_STATUS:
+      // Target the correct status and filter out the card of concern.
+      status = action.payload.currentStatus;
+      id = action.payload.id;
+      name = action.payload.name;
+
+      const updatedApplicants = state[status].filter((app: CardContents) => {
+        return app.id !== id && app.name !== name;
+      });
+
+      return {
+        ...state,
+        [status]: updatedApplicants,
+      };
+
     // When a card's status prop changes, it should also 
     // be moved to the array corrersponding to this new status.
     case types.CHANGE_STATUS:
@@ -99,7 +115,7 @@ const cardsReducer = (state: {[ key: string ]: any } = initialState, action: Car
       const newStatus = action.payload.newStatus;
 
       // Save the old comments, as it's the only value not included in payload.
-      let originalComments: string;
+      let originalComments: string[];
       
       console.log('state[oldStatus] BEFORE:', state[oldStatus]);
 

@@ -1,7 +1,37 @@
 import { Request, Response, NextFunction } from 'express';
 import Card from './cardsModel';
 
+type Card = {
+  id: string,
+  name: string,
+  comments: string,
+  status: string,
+};
+
 class CardsController {
+  async getCardsFromDb(req: Request, res: Response, next: NextFunction) {
+    console.log('*** inside CardsController.getCardsFromDb ***');
+
+    try {
+      const cardDocs = await Card.find({});
+
+      res.locals.cards = cardDocs.map((card) => {
+        return {
+          id: card._id,
+          name: card.name!,
+          comments: card.comments,
+          status: card.status,
+        }
+      });
+
+      return next();
+    } catch(err) {
+      res.locals.errLocation = 'CardsController.getCardsFromDb';
+      
+      return next(err);
+    }
+  }
+
   async addCard(req: Request, res: Response, next: NextFunction) {
     const { name, comments, status } = req.body;
     console.log('*** inside CardsController.addCard ***\n', `name: ${name}, comments: ${comments}`);
@@ -24,6 +54,7 @@ class CardsController {
       return next(err);
     }
   }
+
   
   // async changeStatus(req: Request, res: Response, next: NextFunction) {
   //   const { id, newComments } = req.body;

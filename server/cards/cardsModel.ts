@@ -30,6 +30,25 @@ const cardSchema = new mongoose.Schema({
   performance: Number,
 });
 
-const Card = mongoose.model('Card', cardSchema);
+interface CardDoc extends mongoose.Document {
+  id: {
+    type: string;
+    unique: boolean;
+    required: boolean;
+  },
+  name: {
+    type: string;
+    unique: boolean;
+    required: boolean;
+  },
+  comments: [{ type: string }],
+  status: {
+    type: number,
+    unique: boolean;
+    required: boolean;
+  },
+}
+
+const Card = mongoose.model<CardDoc>('Card', cardSchema);
 
 export default Card;

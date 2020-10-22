@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 
 // Changed `localhost` to `collov-mongo` for inter-container comm.
-const URL = 'mongodb://collov-mongo:27017/collov-board';
+const isDev = process.env.NODE_ENV === 'development';
+
+const URL = isDev ? 'mongodb://localhost:27017/collov-board':
+  'mongodb://collov-mongo:27017/collov-board';
 
 mongoose.connect(URL, {
   // options for the connect method to parse the URI

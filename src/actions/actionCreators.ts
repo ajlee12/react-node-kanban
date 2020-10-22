@@ -6,18 +6,37 @@ import { CardsState } from '../store/types';
 // 'status' indicates which list the applicant is on.
 const addComments = (
   id: string,
-  comments: string,
-  name: string,
-  status: string
+  comments: string[],
 ) => ({
   type: types.ADD_COMMENTS,
   payload: {
     id,
     comments,
-    name,
-    status,
   },
 });
+
+const addCommentsThunk = (
+  id: string,
+  comments: string[],
+): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
+  try {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        comments,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    };
+
+    const response = await fetch('/cards', options);
+    console.log(`response from addCommentsThunk's fetch: ${response}`);
+
+    dispatch(addComments(id, comments));
+  } catch(err) {
+    console.log(`Error in addCardThunk's fetch: ${err}`);
+  }
+}
 
 // Note that every newly created card gets the "Applied" status
 // and goes into the Applied List. And we'll be using 

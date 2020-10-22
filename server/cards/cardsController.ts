@@ -25,25 +25,25 @@ class CardsController {
     }
   }
   
-  async changeStatus(req: Request, res: Response, next: NextFunction) {
-    const { id, newComments } = req.body;
+  // async changeStatus(req: Request, res: Response, next: NextFunction) {
+  //   const { id, newComments } = req.body;
 
-    try {
-      const cardDoc = await Card.findOneAndUpdate(
-        {
-          _id: id,
-        }, 
-        {
-          comments: newComments,
-        });
+  //   try {
+  //     const cardDoc = await Card.findOneAndUpdate(
+  //       {
+  //         _id: id,
+  //       }, 
+  //       {
+  //         comments: newComments,
+  //       });
       
-      return next();
-    } catch(err) {
-      res.locals.errLocation = 'CardsController.changeStatus';
+  //     return next();
+  //   } catch(err) {
+  //     res.locals.errLocation = 'CardsController.changeStatus';
 
-      return next(err);
-    }
-  }
+  //     return next(err);
+  //   }
+  // }
 }
 
 export default CardsController;

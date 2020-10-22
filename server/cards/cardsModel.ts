@@ -19,7 +19,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  comments: String,
+  comments: [{ type: String }],
   status: {
     type: String,
     required: true,

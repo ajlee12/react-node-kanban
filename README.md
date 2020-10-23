@@ -14,6 +14,29 @@ A toy ​kanban board​ to manage the hiring process, similar to ​Trello.
     - `docker-compose up`
 4. View the app on `localhost:8080` (served by Nginx reverse proxy)
 
+# To be Improved
+## Styling
+It would be nice to incorporate a CSS library such as MaterialUI. And general improvement on the look & feel of the app would be necessary.
+## Log-In/Sign-Up
+Basic approach would be to use cookies to maintain sessions. 
+Session ID would be save to MongoDB, and upon landing at the board, the users' session cookie would be 
+checked again the DB. If session was still valid, the board would be rendered.
+MongoDB has a built-in feature to expire data in a pre-determined time, and it'd be useful here.
+
+Bcrypt would be used to salt and encrypt user passwords.
+
+If time allows, OAuth would be the most ideal.
+## Testing
+Enzyme/Jest would be used for React front-end and supertest for Node back-end.
+
+## UI
+Most desired:
+- Uploading resume PDF to each card (perhaps via drag & drop).
+
+These following will be easy to implement.
+- Deleting comments
+- Updating existing comments
+- Adding performance score for each card
 
 # Features, Techs, and Notes
 ## TypeScript

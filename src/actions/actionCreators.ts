@@ -29,8 +29,8 @@ const addCommentsThunk = (
       headers: {'Content-Type': 'application/json'},
     };
 
-    const response = await fetch('/cards', options);
-    console.log(`response from addCommentsThunk's fetch: ${response}`);
+    await fetch('/cards', options);
+    // console.log(`response from addCommentsThunk's fetch: ${response}`);
 
     dispatch(addComments(id, comments));
   } catch(err) {
@@ -73,6 +73,7 @@ const addCardThunk = (
       }),
       headers: {'Content-Type': 'application/json'},
     };
+
     // Resp. data should be a Mongo-generated ID (string) for the new card.
     const response = await fetch('/cards', options);
     const newCardID = await response.text();
@@ -94,6 +95,31 @@ const changeStatus = (
     status
   },
 });
+
+const changeStatusThunk = (
+  id: string,
+  status: string,
+): ThunkAction<void, CardsState, null, Action<string>> => async (dispatch) => {
+  try {    
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify({
+        id,
+        status,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    };
+
+    await fetch('/cards', options);
+
+    // Not dispatching `changeStatus`, as it would cause app to break
+    // (NotFoundError: Failed to execute 'removeChild' on 'Node')
+    // dispatch(changeStatus(id, status));
+    return;
+  } catch(err) {
+    console.log(`Error in changeStatusThunk's fetch: ${err}`);
+  }
+};
 
 
 const syncCardsFromDbToStore = (cardsArray: CardContents[]) => ({
@@ -126,6 +152,7 @@ const actions = {
   addCommentsThunk,
   addCard,
   changeStatus,
+  changeStatusThunk,
   addCardThunk,
   getAllCardsFromDbThunk
 };

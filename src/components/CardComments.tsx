@@ -6,10 +6,6 @@ import actions from '../actions/actionCreators';
 import { CardsState } from '../store/types';
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
-  // addComments: (e: FormEvent, inputText: string, name: string, listTitle: string) => {
-  //   e.preventDefault();
-  //   dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText, name, listTitle));
-  // },
   addCommentsThunk: (id: string, inputText: string) => {
     // e.preventDefault();
     dispatch(actions.addCommentsThunk(id, inputText));

@@ -14,8 +14,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) =
   getAllCardsFromDbThunk: () => {
     dispatch(actions.getAllCardsFromDbThunk());
   },
-  changeStatus: (id: string, status: string) => {
-    dispatch(actions.changeStatus(id, status));
+  changeStatusThunk: (id: string, status: string) => {
+    dispatch(actions.changeStatusThunk(id, status));
   },
 });
 
@@ -58,13 +58,16 @@ const List = (props: ListProps) => {
     target.appendChild(card);
 
     const id = card.id;
-    const name = card.dataset.name;
-    const oldStatus = card.dataset.status;
+    // const name = card.dataset.name;
+    // const oldStatus = card.dataset.status;
+
     // Get the name of the new list this card landed on.
     const newStatus = target.childNodes.item(0).textContent;
 
-    console.log(`In List (drop func.)\n`, `id: ${id}, name: ${name}, oldStatus: ${oldStatus}, newStatus: ${newStatus}`);
+    // console.log(`In List (drop func.)\n`, `id: ${id}, newStatus: ${newStatus}`);
 
+    props.changeStatusThunk(id, newStatus);
+    
     card.setAttribute('data-status', newStatus!);
   };
 
@@ -84,10 +87,11 @@ const List = (props: ListProps) => {
       id={props.id}
     >
       <h2>{listTitle}</h2>
-      {props.cards && props.cards.map((card: CardContents) => {
+      {props.cards && props.cards.map((card: CardContents, i: number) => {
         if (card.status === listTitle) {
           return <Card
             id={card.id}
+            key={`${listTitle}${i}`}
             name={card.name}
             comments={card.comments}
             listTitle={listTitle}

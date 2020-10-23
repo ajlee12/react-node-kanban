@@ -112,9 +112,6 @@ const cardsReducer = (state = initialState, action: CardsAction) => {
     case types.CHANGE_STATUS:
       id = action.payload.id;
       status = action.payload.status;
-      
-      // const oldStatus = action.payload.oldStatus;
-      // const newStatus = action.payload.newStatus;
 
       newStateArray = state.map((card) => {
         return card.id === id ? {

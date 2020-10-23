@@ -20,11 +20,11 @@ router.post('/',
 );
 
 // Updating the status of a card.
-// router.put('/',
-//   cardsController.changeStatus,
-//   (req: Request, res: Response) => {
-//     res.sendStatus(200);
-//   }
-// );
+router.put('/',
+  cardsController.changeStatus,
+  (req: Request, res: Response) => {
+    res.sendStatus(200);
+  }
+);
 
 export default router;

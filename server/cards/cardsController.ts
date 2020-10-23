@@ -54,27 +54,21 @@ class CardsController {
       return next(err);
     }
   }
-
   
-  // async changeStatus(req: Request, res: Response, next: NextFunction) {
-  //   const { id, newComments } = req.body;
+  async changeStatus(req: Request, res: Response, next: NextFunction) {
+    const { id, status } = req.body;
 
-  //   try {
-  //     const cardDoc = await Card.findOneAndUpdate(
-  //       {
-  //         _id: id,
-  //       }, 
-  //       {
-  //         comments: newComments,
-  //       });
+    try {
+      const doc = await Card.findOneAndUpdate({ _id: id }, { status });
+      console.log(`doc from findOneAndUpdate: ${doc}`);
       
-  //     return next();
-  //   } catch(err) {
-  //     res.locals.errLocation = 'CardsController.changeStatus';
+      return next();
+    } catch(err) {
+      res.locals.errLocation = 'CardsController.changeStatus';
 
-  //     return next(err);
-  //   }
-  // }
+      return next(err);
+    }
+  }
 }
 
 export default CardsController;

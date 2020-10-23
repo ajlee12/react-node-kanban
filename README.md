@@ -47,7 +47,8 @@ This bug was a huge pain! It happened right when a dragged card lands in a new L
 - Considered using React DnD library to solve the problem. However, before resorting to that, I'll try removing the card from store _at the moment it gets picked up_, instead of when it lands on another List.
 - That also didn't work.
 
-The final solution was a store refactoring. Instead of store lists and keeping track of which cards are in which list, the store only stores the cards. Changing a card's status only changes a card's property in store and not which list it belongs. The `List` component decides where each card goes when rendering them.
+The final solution was a store refactoring. Instead of store lists and keeping track of which cards are in which list, the store only stores the cards. Changing a card's status (by dragging) only changes a card's DOM Element attribute (`data-status`) and the status in the database. The `List` component decides where each card goes when rendering them.
+- When the app refreshes, it fetches all cards from DB. And since the statuses were updated in the DB, the cards will be rendered to the lists that they were on.
 
 ## [react-modal](http://reactcommunity.org/react-modal/)
 This package was used to create the modal form for adding an applicant card. 

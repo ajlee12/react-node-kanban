@@ -44,7 +44,6 @@ class CardsController {
         status,
       });
 
-      console.log(`cardDoc (controller.addCard): ${cardDoc}`);
       res.locals.newCardId = cardDoc._id;
 
       return next();
@@ -59,8 +58,7 @@ class CardsController {
     const { id, status } = req.body;
 
     try {
-      const doc = await Card.findOneAndUpdate({ _id: id }, { status });
-      console.log(`doc from findOneAndUpdate: ${doc}`);
+      await Card.findOneAndUpdate({ _id: id }, { status });
       
       return next();
     } catch(err) {

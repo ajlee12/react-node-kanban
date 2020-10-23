@@ -132,19 +132,18 @@ const getAllCardsFromDbThunk = (): ThunkAction<void, CardsState, null, Action<st
     const options = {
       method: 'GET',
     };
+
     // Resp. data should be an array of cards.
     const response = await fetch('/cards', options);
     const cardsArray = await response.json();
 
     dispatch(syncCardsFromDbToStore(cardsArray));
 
-    ///////////
     return cardsArray;
   } catch(err) {
     console.log(`Error in getAllCardsFromDbThunk's fetch: ${err}`);
   }
 };
-
 
 
 const actions = {

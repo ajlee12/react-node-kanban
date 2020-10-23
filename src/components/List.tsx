@@ -22,14 +22,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) =
 interface ListProps {
   // This allows accessing of a props' prop using `props[listTitle]`.
   [key: string]: any,
-
-  // listTitle: string,
-  // Applied: CardContents[],
-  // PhoneScreen: CardContents[],
-  // OnSite: CardContents[],
-  // Offered: CardContents[],
-  // Accepted: CardContents[],
-  // Rejected: CardContents[],
 };
 
 const List = (props: ListProps) => {
@@ -58,13 +50,9 @@ const List = (props: ListProps) => {
     target.appendChild(card);
 
     const id = card.id;
-    // const name = card.dataset.name;
-    // const oldStatus = card.dataset.status;
 
     // Get the name of the new list this card landed on.
     const newStatus = target.childNodes.item(0).textContent;
-
-    // console.log(`In List (drop func.)\n`, `id: ${id}, newStatus: ${newStatus}`);
 
     props.changeStatusThunk(id, newStatus);
     

@@ -7,7 +7,6 @@ import { CardsState } from '../store/types';
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
   addCommentsThunk: (id: string, inputText: string) => {
-    // e.preventDefault();
     dispatch(actions.addCommentsThunk(id, inputText));
   },
 });
@@ -20,8 +19,6 @@ type CardCommentsProps = ReduxProps & {
   id: string,
   name: string,
   listTitle: string,
-  // addComments: ReturnType<typeof mapDispatchToProps> | any,
-  // addCommentsThunk: (e: FormEvent, inputText: string, name: string, listTitle: string) => void,
 };
 
 const CardComments = (props: CardCommentsProps) => {

@@ -1,5 +1,4 @@
 import React, { DragEvent } from 'react';
-// import { connect, ConnectedProps } from 'react-redux';
 import CardComments from './CardComments';
 
 

@@ -6,15 +6,6 @@ export interface CardContents {
 };
 
 export type CardsState = CardContents[];
-// {
-//   Applied: CardContents[],
-//   PhoneScreen: CardContents[],
-//   OnSite: CardContents[],
-//   Offered: CardContents[],
-//   Accepted: CardContents[],
-//   Rejected: CardContents[],
-  
-// };
 
 export interface AppState {
   cards: CardsState,

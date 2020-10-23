@@ -23,7 +23,6 @@ const ModalForm = (props: ModalFormProps) => {
   };
 
   const handleSubmit = (e: FormEvent) => {
-    // console.log('updated formData state: ', formData);
     e.preventDefault();
 
     props.submitApp(formData.name, formData.comments);

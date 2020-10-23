@@ -1,16 +1,25 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { Action } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 import actions from '../actions/actionCreators';
+import { CardsState } from '../store/types';
 
-interface CardCommentsProps {
+const mapDispatchToProps = (dispatch: ThunkDispatch<CardsState, null, Action>) => ({
+  addCommentsThunk: (id: string, inputText: string) => {
+    dispatch(actions.addCommentsThunk(id, inputText));
+  },
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+type CardCommentsProps = ReduxProps & {
   id: string,
   name: string,
   listTitle: string,
-  addComments: ReturnType<typeof mapDispatchToProps> | any,
 };
-
-// let inputText: string;
 
 const CardComments = (props: CardCommentsProps) => {
   const [input, setInputValue] = useState('');
@@ -22,13 +31,22 @@ const CardComments = (props: CardCommentsProps) => {
     setInputValue(e.target.value);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLFormElement;
+    console.log('target.id (handleSubmit, <CardComments/>)', target.id);
+
+    props.addCommentsThunk(target.id, input);
+    setInputValue('');
+  };
+
   return (
     <div className='comments-div'>
       <form
         className='input-form'
         id={props.id}
         name={props.name}
-        onSubmit={(e) => props.addComments(e, input, props.name, props.listTitle)}
+        onSubmit={handleSubmit}
       >
         <h4>Add comments:</h4>
         <span className='input-span'>
@@ -44,11 +62,4 @@ const CardComments = (props: CardCommentsProps) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addComments: (e: FormEvent, inputText: string, name: string, listTitle: string) => {
-    e.preventDefault();
-    dispatch(actions.addComments((e.target as HTMLFormElement).id, inputText, name, listTitle));
-  },
-});
-
-export default connect(null, mapDispatchToProps)(CardComments);
+export default connector(CardComments);

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "./server"
+  ],
+  "exclude": [
+    "./src"
+  ],
+  "compilerOptions": {
+    "module": "commonJS",
+    "noEmit": false,
+    "outDir": "./serverBuild"
+  }
+}

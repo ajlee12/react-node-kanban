@@ -41,7 +41,7 @@ interface CardDoc extends mongoose.Document {
     unique: boolean;
     required: boolean;
   },
-  comments: [{ type: string }],
+  comments: string[],
   status: {
     type: number,
     unique: boolean;

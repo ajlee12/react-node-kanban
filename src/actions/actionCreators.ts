@@ -29,7 +29,7 @@ const addCommentsThunk = (
       headers: {'Content-Type': 'application/json'},
     };
 
-    await fetch('/cards', options);
+    await fetch('/cards/comments', options);
     // console.log(`response from addCommentsThunk's fetch: ${response}`);
 
     dispatch(addComments(id, comments));

@@ -19,6 +19,14 @@ router.post('/',
   }
 );
 
+// Adding comments to a card.
+router.post('/comments',
+  cardsController.addComments,
+  (req: Request, res: Response) => {
+    res.status(200).set({'Content-Type': 'text/plain'}).send();
+  }
+);
+
 // Updating the status of a card.
 router.put('/',
   cardsController.changeStatus,

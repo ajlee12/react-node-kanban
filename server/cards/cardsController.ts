@@ -67,6 +67,27 @@ class CardsController {
       return next(err);
     }
   }
+
+  async addComments(req: Request, res: Response, next: NextFunction) {
+    const { id, comments } = req.body;
+
+    try {
+      // Find the card and retrieve its existing comments array.
+      const cardDoc = await Card.findOne({ _id: id });
+      const existingComments = cardDoc?.comments;
+      console.log(`CardsController.addComments: existing comments: ${existingComments}`);
+
+      const updatedComments = existingComments?.concat(comments);
+
+      await Card.findOneAndUpdate({ _id: id}, { comments: updatedComments })
+      
+      return next();
+    } catch(err) {
+      res.locals.errLocation = 'CardsController.changeStatus';
+
+      return next(err);
+    }
+  }
 }
 
 export default CardsController;
